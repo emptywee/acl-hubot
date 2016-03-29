@@ -1,0 +1,16 @@
+{
+        "groups":
+        {
+                "admins": [ "admin1", "admin2", "admin3", "admin4" ]
+        },
+  "commands":
+  {
+    "restricted":
+    {
+      "run": [ "admins" ],
+      "os info": [ "admins" ],
+      "restart service": [ "admins" ]
+    }
+  }
+}
+
