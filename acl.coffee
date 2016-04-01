@@ -15,38 +15,38 @@ module.exports = (robot) ->
     cmd = context.response.message.text
     chatUser = context.response.message.user.name
     chatRoom = context.response.message.user.room
-    console.log getTimeStamp() + " robot.listenerMiddleware called with message: " + cmd
-    console.log getTimeStamp() + " user: " + chatUser
-    console.log getTimeStamp() + " room: " + chatRoom
+    console.log getTimeStamp() + " robot.listenerMiddleware called with message: \'" + cmd + "\' by \'" + chatUser + "\' at \'" + chatRoom + "\'"
+#    console.log getTimeStamp() + " user: " + chatUser
+#    console.log getTimeStamp() + " room: " + chatRoom
 
     cmd = cmd.replace(/^\s*[@]?(?:hubot[:,]?|![:,]?)\s*/, "")
-    console.log getTimeStamp() + " stripped command: " + cmd
+ #   console.log getTimeStamp() + " stripped command: " + cmd
 
     for restrictedCommand, groups of config.commands.restricted
-        console.log getTimeStamp() + " " + restrictedCommand + "=" + groups
+  #      console.log getTimeStamp() + " " + restrictedCommand + "=" + groups
         regex = new RegExp("^" + restrictedCommand)
         if cmd.match(regex)
-          console.log getTimeStamp() + " command " + cmd + " is restricted to " + groups
+   #       console.log getTimeStamp() + " command " + cmd + " is restricted to " + groups
           # check if user is in the group
           for group in groups
             if config.groups.hasOwnProperty(group)
-              console.log getTimeStamp() + " found group " + group + " in config"
+    #          console.log getTimeStamp() + " found group " + group + " in config"
               found = false
               for user in config.groups[group]
-                console.log getTimeStamp() + " found user " + user + " in group " + group
+     #           console.log getTimeStamp() + " found user " + user + " in group " + group
                 if user == chatUser
-                  console.log getTimeStamp() + " user " + chatUser + " is allowed to exec this command "
+      #            console.log getTimeStamp() + " user " + chatUser + " is allowed to exec this command "
                   found = true
                   break
               if not found
                 # respond with access denied
-                console.log getTimeStamp() + " Access denied for " + chatUser + " to execute command " + cmd
-                context.response.reply "Access denied to execute command: " + cmd
+                console.log getTimeStamp() + " Access denied for \'" + chatUser + "@" + chatRoom + " to execute command \'" + cmd + "\'"
+                context.response.reply "Access denied to execute command: \'" + cmd + "\'"
                 return
               else
                 # respond with access granted and proceed
-                console.log getTimeStamp() + " Access granted for " + chatUser + " to execute command " + cmd
-                context.response.reply "Access granted to execute command: " + cmd
+                console.log getTimeStamp() + " Access granted for \'" + chatUser + "@" + chatRoom + "\' to execute command \'" + cmd + "\'"
+                context.response.reply "Access granted to execute command: \'" + cmd + "\'"
                 next () ->
                   done()
                 return
