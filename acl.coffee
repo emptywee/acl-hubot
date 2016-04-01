@@ -40,12 +40,12 @@ module.exports = (robot) ->
                   break
               if not found
                 # respond with access denied
-                console.log getTimeStamp() + " Access denied for \'" + chatUser + "\' to execute command \'" + cmd + "\'"
+                console.log getTimeStamp() + " Access denied for \'" + chatUser + "@" + chatRoom + " to execute command \'" + cmd + "\'"
                 context.response.reply "Access denied to execute command: \'" + cmd + "\'"
                 return
               else
                 # respond with access granted and proceed
-                console.log getTimeStamp() + " Access granted for \'" + chatUser + "\' to execute command \'" + cmd + "\'"
+                console.log getTimeStamp() + " Access granted for \'" + chatUser + "@" + chatRoom + "\' to execute command \'" + cmd + "\'"
                 context.response.reply "Access granted to execute command: \'" + cmd + "\'"
                 next () ->
                   done()
